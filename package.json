@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@iconify-json/heroicons": "^1.1.24",
+    "@iconify-json/mdi": "^1.2.0",
     "@iconify-json/simple-icons": "^1.1.112",
     "@nuxt/eslint": "^0.3.13",
     "@nuxt/fonts": "^0.7.1",
@@ -25,6 +26,7 @@
     "@tailwindcss/forms": "^0.5.9",
     "@unovis/ts": "^1.4.3",
     "@unovis/vue": "^1.4.3",
+    "@vueuse/core": "^11.1.0",
     "@vueuse/nuxt": "^10.11.0",
     "eslint": "^9.6.0",
     "nuxt": "^3.12.4",

@@ -4,6 +4,6 @@ export default defineNuxtRouteMiddleware((_to, _from) => {
   const userStore = useUserStore()
 
   if (userStore.loggedIn) {
-    return navigateTo('/')
+    return navigateTo('/dashboard')
   }
 })

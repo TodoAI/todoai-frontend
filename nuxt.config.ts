@@ -22,8 +22,5 @@ export default defineNuxtConfig({
       }
     }
   },
-  runtimeConfig: {
-    apiBaseUrl: 'http://localhost:8000'
-  },
   compatibilityDate: '2024-09-19'
 })

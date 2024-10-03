@@ -1,6 +1,17 @@
 <script setup lang="ts">
+const route = useRoute()
+
+const pageName = computed(() => {
+  return route.name
+})
+
+useHead(computed(() => {
+  return {
+    title: pageName.value + ' - TodoAI'
+  }
+}))
+
 useSeoMeta({
-  title: 'TodoAI',
   ogTitle: 'TodoAI',
   description: 'TodoAI, votre liste de tâches intelligente',
   ogDescription: 'TodoAI, votre liste de tâches intelligente'
@@ -12,5 +23,7 @@ useSeoMeta({
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
+
+    <UModals />
   </div>
 </template>

@@ -13,11 +13,11 @@ export class ApiError extends Error {
   }
 }
 
-export const useApi = (runtimeConfig: RuntimeConfig = useRuntimeConfig()) => {
+export const useApi = (_runtimeConfig: RuntimeConfig = useRuntimeConfig()) => {
   const userStore = useUserStore()
 
   const apiConfig: ApiConfig = {
-    baseUrl: runtimeConfig.apiBaseUrl,
+    baseUrl: 'http://localhost:8000',
     baseApiParams: {
       headers: {
         'Authorization': userStore.apiToken ? `Bearer ${userStore.apiToken}` : '',
