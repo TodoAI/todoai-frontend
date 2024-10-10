@@ -48,11 +48,6 @@ export interface TaskResponseDto {
   updatedAt: string;
 }
 
-export interface CreateTaskDto {
-  name: string;
-  description: string;
-}
-
 export interface ListResponseDto {
   id: number;
   name: string;
@@ -66,6 +61,20 @@ export interface CreateListDto {
 }
 
 export interface EditListDto {
+  name: string;
+  description: string;
+}
+
+export interface RequestGenerationDto {
+  name: string;
+}
+
+export interface TaskDescriptionDto {
+  success: boolean;
+  description: string;
+}
+
+export interface CreateTaskDto {
   name: string;
   description: string;
 }
@@ -323,118 +332,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         ...params,
       }),
   };
-  task = {
-    /**
-     * No description
-     *
-     * @tags task
-     * @name TaskControllerFindOne
-     * @request GET:/task/{listId}/{taskId}
-     * @secure
-     */
-    taskControllerFindOne: (listId: number, taskId: number, params: RequestParams = {}) =>
-      this.request<TaskResponseDto[], any>({
-        path: `/task/${listId}/${taskId}`,
-        method: "GET",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags task
-     * @name TaskControllerCreate
-     * @request POST:/task/{listId}
-     * @secure
-     */
-    taskControllerCreate: (listId: number, data: CreateTaskDto, params: RequestParams = {}) =>
-      this.request<TaskResponseDto, any>({
-        path: `/task/${listId}`,
-        method: "POST",
-        body: data,
-        secure: true,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags task
-     * @name TaskControllerUpdate
-     * @request PUT:/task/{taskId}
-     * @secure
-     */
-    taskControllerUpdate: (taskId: string, data: CreateTaskDto, params: RequestParams = {}) =>
-      this.request<TaskResponseDto, any>({
-        path: `/task/${taskId}`,
-        method: "PUT",
-        body: data,
-        secure: true,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags task
-     * @name TaskControllerDelete
-     * @request DELETE:/task/{taskId}
-     * @secure
-     */
-    taskControllerDelete: (taskId: number, params: RequestParams = {}) =>
-      this.request<TaskResponseDto, any>({
-        path: `/task/${taskId}`,
-        method: "DELETE",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags task
-     * @name TaskControllerComplete
-     * @request PUT:/task/{taskId}/complete
-     * @secure
-     */
-    taskControllerComplete: (taskId: string, params: RequestParams = {}) =>
-      this.request<TaskResponseDto, any>({
-        path: `/task/${taskId}/complete`,
-        method: "PUT",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags task
-     * @name TaskControllerUncomplete
-     * @request PUT:/task/{taskId}/uncomplete
-     * @secure
-     */
-    taskControllerUncomplete: (taskId: string, params: RequestParams = {}) =>
-      this.request<TaskResponseDto, any>({
-        path: `/task/${taskId}/uncomplete`,
-        method: "PUT",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
-  };
   list = {
     /**
      * No description
      *
-     * @tags list
+     * @tags List
      * @name ListControllerGetAllLists
      * @request GET:/list
      * @secure
@@ -451,7 +353,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags list
+     * @tags List
      * @name ListControllerCreateList
      * @request POST:/list
      * @secure
@@ -470,7 +372,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags list
+     * @tags List
      * @name ListControllerGetList
      * @request GET:/list/{id}
      * @secure
@@ -487,7 +389,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags list
+     * @tags List
      * @name ListControllerEditList
      * @request PUT:/list/{id}
      * @secure
@@ -506,7 +408,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags list
+     * @tags List
      * @name ListControllerDeleteList
      * @request DELETE:/list/{id}
      * @secure
@@ -515,6 +417,132 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       this.request<ListResponseDto, any>({
         path: `/list/${id}`,
         method: "DELETE",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+  };
+  task = {
+    /**
+     * No description
+     *
+     * @tags Task
+     * @name TaskControllerGenerate
+     * @request POST:/task/generate
+     * @secure
+     */
+    taskControllerGenerate: (data: RequestGenerationDto, params: RequestParams = {}) =>
+      this.request<TaskDescriptionDto, any>({
+        path: `/task/generate`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Task
+     * @name TaskControllerFindOne
+     * @request GET:/task/{listId}/{taskId}
+     * @secure
+     */
+    taskControllerFindOne: (listId: number, taskId: number, params: RequestParams = {}) =>
+      this.request<TaskResponseDto[], any>({
+        path: `/task/${listId}/${taskId}`,
+        method: "GET",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Task
+     * @name TaskControllerCreate
+     * @request POST:/task/{listId}
+     * @secure
+     */
+    taskControllerCreate: (listId: number, data: CreateTaskDto, params: RequestParams = {}) =>
+      this.request<TaskResponseDto, any>({
+        path: `/task/${listId}`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Task
+     * @name TaskControllerUpdate
+     * @request PUT:/task/{taskId}
+     * @secure
+     */
+    taskControllerUpdate: (taskId: string, data: CreateTaskDto, params: RequestParams = {}) =>
+      this.request<TaskResponseDto, any>({
+        path: `/task/${taskId}`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Task
+     * @name TaskControllerDelete
+     * @request DELETE:/task/{taskId}
+     * @secure
+     */
+    taskControllerDelete: (taskId: number, params: RequestParams = {}) =>
+      this.request<TaskResponseDto, any>({
+        path: `/task/${taskId}`,
+        method: "DELETE",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Task
+     * @name TaskControllerComplete
+     * @request PUT:/task/{taskId}/complete
+     * @secure
+     */
+    taskControllerComplete: (taskId: string, params: RequestParams = {}) =>
+      this.request<TaskResponseDto, any>({
+        path: `/task/${taskId}/complete`,
+        method: "PUT",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Task
+     * @name TaskControllerUncomplete
+     * @request PUT:/task/{taskId}/uncomplete
+     * @secure
+     */
+    taskControllerUncomplete: (taskId: string, params: RequestParams = {}) =>
+      this.request<TaskResponseDto, any>({
+        path: `/task/${taskId}/uncomplete`,
+        method: "PUT",
         secure: true,
         format: "json",
         ...params,

@@ -63,7 +63,7 @@ async function updateCompletedState() {
       <p class="text-xl font-semibold">
         {{ task.name }}
       </p>
-      <p>{{ task.description }}</p>
+      <MDC :value="task.description" />
     </div>
     <div class="flex items-center justify-center">
       <UButtonGroup v-if="!disableEditing">

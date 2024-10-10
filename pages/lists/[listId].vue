@@ -14,6 +14,7 @@ tasks.value = list.value.tasks
 const createTaskOpen = ref(false)
 const newName = ref('')
 const newDescription = ref('')
+const taskDescriptionDisabled = ref(false)
 const createLoading = ref(false)
 
 async function createTask() {
@@ -33,6 +34,15 @@ const editListOpen = ref(false)
 const editListLoading = ref(false)
 const newListName = ref(list.value.name)
 const newListDescription = ref(list.value.description)
+
+async function generateTaskDescription() {
+  taskDescriptionDisabled.value = true
+  const taskName = newName.value
+  newDescription.value = await useApi().task.taskControllerGenerate({
+    name: taskName
+  }).then((res) => res.description)
+  taskDescriptionDisabled.value = false
+}
 
 async function editList() {
   editListLoading.value = true
@@ -103,13 +113,13 @@ async function deleteList() {
         <UFormGroup label="Name">
           <UInput
             v-model="newListName"
-            label="Name"
+            placeholder="Name"
           />
         </UFormGroup>
         <UFormGroup label="Description">
-          <UInput
+          <UTextarea
             v-model="newListDescription"
-            label="Description"
+            placeholder="Description"
           />
         </UFormGroup>
         <div class="flex justify-center">
@@ -132,13 +142,15 @@ async function deleteList() {
         <UFormGroup label="Name">
           <UInput
             v-model="newName"
-            label="Name"
+            placeholder="Name"
+            @change="generateTaskDescription"
           />
         </UFormGroup>
         <UFormGroup label="Description">
-          <UInput
+          <UTextarea
             v-model="newDescription"
-            label="Description"
+            placeholder="Description"
+            :disabled="taskDescriptionDisabled"
           />
         </UFormGroup>
         <div class="flex justify-center">
