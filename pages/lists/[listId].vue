@@ -69,6 +69,12 @@ async function deleteList() {
   <UDashboardPage>
     <UDashboardPanel grow>
       <UDashboardNavbar :title="list?.name ?? 'Task list'">
+        <template #title>
+          <div class="flex gap-2 items-baseline">
+            <p class="font-semibold">{{ list?.name }}</p>
+            <p class="text-xs text-gray-500">{{ list?.description }}</p>
+          </div>
+        </template>
         <template #right>
           <UButton
             color="gray"
@@ -92,7 +98,7 @@ async function deleteList() {
         </template>
       </UDashboardNavbar>
       <UDashboardPanelContent>
-        <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-4" v-if="tasks.length > 0">
           <ListTask
             v-for="task in tasks"
             :key="task.id"
@@ -100,6 +106,9 @@ async function deleteList() {
             @task-deleted="tasks = tasks.filter(t => t.id !== $event)"
             @task-edited="tasks = tasks.map(t => t.id === $event.id ? $event : t)"
           />
+        </div>
+        <div class="flex flex-col items-center justify-center h-full" v-else>
+          <p class="text-gray-500" v-if="tasks.length === 0">No tasks</p>
         </div>
       </UDashboardPanelContent>
     </UDashboardPanel>
