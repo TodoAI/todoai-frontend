@@ -95,7 +95,7 @@ async function updateCompletedState() {
         />
       </UFormGroup>
       <UFormGroup label="Description">
-        <UInput
+        <UTextarea
           v-model="newDescription"
           label="Description"
         />
