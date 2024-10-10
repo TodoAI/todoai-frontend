@@ -23,5 +23,8 @@ export default defineNuxtConfig({
       }
     }
   },
+  runtimeConfig: {
+    apiUrl: 'http://localhost:8000'
+  },
   compatibilityDate: '2024-09-19'
 })
