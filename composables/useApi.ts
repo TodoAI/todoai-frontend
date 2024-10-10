@@ -17,7 +17,7 @@ export const useApi = (runtimeConfig: RuntimeConfig = useRuntimeConfig()) => {
   const userStore = useUserStore()
 
   const apiConfig: ApiConfig = {
-    baseUrl: runtimeConfig.apiUrl,
+    baseUrl: 'http://localhost:8000',
     baseApiParams: {
       headers: {
         'Authorization': userStore.apiToken ? `Bearer ${userStore.apiToken}` : '',
