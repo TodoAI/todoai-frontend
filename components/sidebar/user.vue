@@ -10,7 +10,7 @@ const items = computed(() => [
   ],
   [
     {
-      label: 'Se déconnecter',
+      label: 'Log out',
       icon: 'i-heroicons-arrow-left-on-rectangle',
       click: () => {
         useUserStore().logout()
@@ -55,7 +55,7 @@ const items = computed(() => [
 
     <template #account>
       <div class="text-left">
-        <p>Connecté en tant que</p>
+        <p>Logged in as</p>
         <p class="truncate font-semibold text-gray-900 dark:text-white">
           {{ username }}
         </p>
